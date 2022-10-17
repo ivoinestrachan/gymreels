@@ -1,0 +1,29 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.mobile{
+display: none;
+}
+#videoBG{
+display: none;
+}
+
+
+@media only screen and (max-width: 767px) {
+  #videoBG{
+  display: block;
+  object-fit: cover;   
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    z-index: -1; 
+ }
+ .navbar{
+ display: none;
+ }
+
+  .mobile{
+  display: block;
+  }
+}
