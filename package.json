@@ -8,6 +8,7 @@
   "dependencies": {
     "@next-auth/prisma-adapter": "^1.0.5",
     "@prisma/client": "^4.4.0",
+    "boring-avatars": "^1.7.0",
     "install": "^0.13.0",
     "next": "latest",
     "next-auth": "^4.14.0",

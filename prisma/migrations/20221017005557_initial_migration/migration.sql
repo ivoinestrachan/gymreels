@@ -32,6 +32,7 @@ CREATE TABLE "User" (
     "name" TEXT,
     "username" TEXT,
     "email" TEXT,
+    "emailVerified" TIMESTAMP(3),
     "password" TEXT,
     "image" TEXT,
     "admin" BOOLEAN NOT NULL DEFAULT false,
