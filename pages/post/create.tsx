@@ -1,7 +1,7 @@
 import React from "react";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
-import Upload from "../../public/assets/upload.svg"
+import Upload from "../../public/assets/upload.svg";
 
 const create = () => {
   const [count, setCount] = React.useState(0);
@@ -21,7 +21,7 @@ const create = () => {
             </div>
             <div className="flex border justify-between items-center w-[80%] rounded-md">
               <textarea
-                className="outline-none w-[75%] items-center"
+                className="outline-none w-[75%] items-center bg-transparent"
                 maxLength={150}
                 onChange={(e) => setCount(e.target.value.length)}
               ></textarea>
@@ -36,7 +36,7 @@ const create = () => {
             <label className="font-extrabold">Preview</label>
             <div className="text-center">
               <input
-               name="video"
+                name="video"
                 type="file"
                 accept="video/*"
                 multiple
@@ -45,12 +45,15 @@ const create = () => {
             </div>
           </div>
           <div className="w-[80%]">
-        <div className="flex items-center justify-center text-center outline-dashed outline-[2px] outline-gray-300 h-[50vh] rounded-md w-[70%] m-auto cursor-pointer hover:outline-[#9C9CD9]">
-          <p className="flex items-center text-[#9C9CD9] font-extrabold text-[20px] text-center gap-4">
-         <span className="items-center"><Image src={Upload} alt="upload-icon"/></span>   Upload Video
-          </p>
-        </div>
-        </div> 
+            <div className="flex items-center justify-center text-center outline-dashed outline-[2px] outline-gray-300 h-[50vh] rounded-md w-[70%] m-auto cursor-pointer hover:outline-[#9C9CD9]">
+              <p className="flex items-center text-[#9C9CD9] font-extrabold text-[20px] text-center gap-4">
+                <span className="items-center">
+                  <Image src={Upload} alt="upload-icon" />
+                </span>{" "}
+                Upload Video
+              </p>
+            </div>
+          </div>
         </div>
       ) : (
         <div className="text-center text-2xl textstyle items-center mt-[250px]">

@@ -1,6 +1,7 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
+import UserProfile from "../components/UserProfile";
 import Apple from "../public/assets/appstore.svg";
 import Google from "../public/assets/googleplay.svg";
 
@@ -17,20 +18,21 @@ const Home: NextPage = () => {
           <source src="/assets/gym.mp4" type="video/mp4" />
         </video>
         <div className="text-white mobile font-extrabold px-5 pt-2 text-[18px]">
-          GymReels  <span className="text-white bg-red-600  text-[18px] ml-1 rounded-[4px] pl-2 pr-2 pb-[2px]">
-              Beta
-            </span>
+          GymReels{" "}
+          <span className="text-white bg-red-600  text-[18px] ml-1 rounded-[4px] pl-2 pr-2 pb-[2px]">
+            Beta
+          </span>
         </div>
         <div className="mobile text-center pt-[250px]">
           <div className="text-center text-[34px] font-bold text-white">
             Work In Progress
           </div>
-          <div className="mt-5">
+          <div className="mt-5 w-[50%] m-auto">
             <div>
-              <Image src={Apple} alt="apple"/>
+              <Image src={Apple} alt="apple" />
             </div>
             <div className="mt-5">
-              <Image src={Google} alt="google"/>
+              <Image src={Google} alt="google" />
             </div>
           </div>
         </div>
@@ -39,6 +41,7 @@ const Home: NextPage = () => {
             @gaigealexzander
           </p>
         </a>
+        <UserProfile />
       </div>
     </>
   );

@@ -2,6 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  /* Your default theme */
+  --background: white;
+  --foreground: black;
+}
+
+[data-theme='dark'] {
+  --background: black;
+  --foreground: white;
+}
+
+
 .mobile{
 display: none;
 }
@@ -11,6 +23,11 @@ display: none;
 
 textarea{
 text-indent: 15px;
+}
+
+.align2{
+  direction:rtl;
+    text-align:justify;
 }
 
 @media only screen and (max-width: 767px) {
@@ -28,5 +45,9 @@ text-indent: 15px;
 
   .mobile{
   display: block;
+  }
+
+  .username{
+  display: none;
   }
 }
