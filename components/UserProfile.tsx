@@ -56,7 +56,7 @@ const UserProfile = () => {
                   {({ active }) => (
                     <a
                       className="group flex w-full items-center rounded-md px-2 py-3 text-md hover:bg-gray-100"
-                      href="/"
+                      href="/user/edit-profile"
                     >
                       Edit Profile
                     </a>
