@@ -2,13 +2,12 @@ import { AiOutlineCloudUpload } from "react-icons/ai";
 import { GoSearch } from "react-icons/go";
 import { FiLogOut } from "react-icons/fi";
 import { useSession, signOut } from "next-auth/react";
-import Image from "next/image";
 
 const Navbar = () => {
   const { data: session } = useSession();
   return (
     <>
-      <div className="flex justify-between px-[10%] py-4 items-center w-[100%] navbar">
+      <div className="flex justify-between px-[10%] py-4 items-center w-[100%] navbar sticky top-0 z-50">
         <a href="/">
           <div className="font-extrabold text-[24px] flex items-center">
             GymReels{" "}
