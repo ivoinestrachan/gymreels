@@ -59,11 +59,10 @@ model VerificationToken {
 
 model Post {
   id          String   @id @default(cuid())
-  description String
   title       String
   createdAt   DateTime @default(now())
   files       File[]
-  Person      User[]
+  person      User[]
 }
 
 model File {
@@ -71,6 +70,6 @@ model File {
   mediaType String
   width     Int
   height    Int
-  postId    String?
   post      Post?   @relation(fields: [postId], references: [id], onDelete: Cascade)
+  postId    String?
 }

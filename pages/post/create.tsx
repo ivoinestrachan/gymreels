@@ -1,12 +1,60 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Upload from "../../public/assets/upload.svg";
+import { File as Files } from "@prisma/client";
+import { useRouter } from "next/router";
 
 const create = () => {
   const [count, setCount] = React.useState(0);
 
   const { data: session }: any = useSession();
+  const [files, setFiles] = useState<Files[]>([]);
+  const [title, setTitle] = useState("");
+  const [uploadingImage, setUploadingImage] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const router = useRouter();
+
+  const createProject = async () => {
+    if (
+      title.trim().length === 0 ||
+      files.length === 0 ||
+      uploadingImage ||
+      submitted
+    ) {
+      return;
+    }
+    console.log(files);
+    console.log(title);
+    console.log(uploadingImage);
+    setSubmitted(true);
+    const res = await fetch("/api/create", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        title,
+        files,
+      }),
+    });
+    if (!res.ok) {
+      alert("Something went wrong :(. Please try again.");
+      return;
+    }
+    router.push("/");
+  };
+
+  const deleteFile = async (file: Files) => {
+    setFiles((files) => files.filter((f) => f.url !== file.url));
+    await fetch("/api/delete", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ url: file.url }),
+    });
+  };
 
   return (
     <>
@@ -23,7 +71,11 @@ const create = () => {
               <textarea
                 className="outline-none w-[75%] items-center bg-transparent"
                 maxLength={150}
-                onChange={(e) => setCount(e.target.value.length)}
+                //onChange={(e) => setCount(e.target.value.length)} 
+                onChange={(e) => setTitle(e.target.value)}
+                id="title"
+                value={title}
+                
               ></textarea>
 
               <div className="mr-5 items-center font-bold">
@@ -39,9 +91,31 @@ const create = () => {
                 name="video"
                 type="file"
                 accept="video/*"
-                multiple
+                  onChange={async (e) => {
+                    if (e.target.files) {
+                      setUploadingImage(true);
+                      const fd = new FormData();
+                      Array.from(e.target.files).forEach((file, i) => {
+                        fd.append(file.name, file);
+                      });
+
+                      const media = await fetch("/api/upload", {
+                        method: "POST",
+                        body: fd,
+                      });
+
+                      const newFiles = await media.json();
+                      setFiles((f) => [...f, ...newFiles]);
+                      e.target.value = "";
+                      setUploadingImage(false);
+                    // console.log(e.target.files);
+                    }
+                  }}
                 className="w-full h-full opacity-10 z-[100]"
               />
+               {uploadingImage ? (
+                  <p className="text-gray-300">Uploading video...</p>
+                ) : null}
             </div>
           </div>
           <div className="w-[80%]">

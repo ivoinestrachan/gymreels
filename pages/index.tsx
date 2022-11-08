@@ -1,11 +1,20 @@
-import type { NextPage } from "next";
+//import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
 import UserProfile from "../components/UserProfile";
 import Apple from "../public/assets/appstore.svg";
 import Google from "../public/assets/googleplay.svg";
+import { PostCard } from "../components/PostCard";
+import prisma from "../lib/prisma";
+import { File, Post, User } from "@prisma/client";
+import { PostGrid } from "../components/PostGrid";
+import Link from "next/link";
 
-const Home: NextPage = () => {
+export type PostCardType = Post & {
+  person: User[];
+  files: File[];
+};
+export default function Home({ projects }: { projects: PostCardType[] }) {
   return (
     <>
       <div>
@@ -42,9 +51,45 @@ const Home: NextPage = () => {
           </p>
         </a>
         <UserProfile />
+        {projects.length === 0 ? (
+          <p className="mt-10 text-center text-xl">
+            No posts yet. Why don&apos;t you{" "}
+            <Link href="/post/create">
+              <a className="text-blue-700 hover:text-[#ADD8E6]">
+                create your own
+              </a>
+            </Link>
+            ?
+          </p>
+        ) : (
+          <PostGrid>
+            {projects.map((project) => {
+              return <PostCard key={project.id} post={project} />;
+            })}
+          </PostGrid>
+        )}
       </div>
     </>
   );
-};
+}
+export async function getServerSideProps() {
+  let projects = await prisma.post.findMany({
+    include: {
+      person: {
+        select: {
+          name: true,
+          username: true,
+          id: true,
+        },
+      },
+      files: true,
+    },
+    orderBy: {
+      createdAt: "desc",
+    },
+  });
 
-export default Home;
+  return {
+    props: { projects }, // will be passed to the page component as props
+  };
+}
