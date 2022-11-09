@@ -21,14 +21,14 @@ export const PostCard = ({
           return (
             <div className="mx-auto !mt-0 block w-fit items-center">
               <div className="text-xl  text-left mr-[150px] items-center flex font-black">
-                <Image
+                {/* <Image
                   src={user.image}
                   alt=""
                   width={40}
                   height={40}
                   className="rounded-[50px] cursor-pointer"
                 />
-                
+                 */}
                 {user.username}
               </div>
             </div>
